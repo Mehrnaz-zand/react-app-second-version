@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Weather.css"
 
+
 export default function Weather(){
+    let [weatherData, setWeatherData]= useState({ready:false})
+   
+    function updateWeather(response){
+    console.log(response.data)
+        setWeatherData({
+            ready:true,
+            temperature:response.data.main.temp, 
+            humidity: response.data.main.humidity,
+            description:response.data.weather[0].description,
+            wind:response.data.wind.speed,
+            icon: "https://ssl.gstatic.com/onebox/weather/64/rain_light.png"
+        })
+
+    }
+ if (weatherData.ready){
     return(
         <div className="Weather">
             <form>
@@ -20,7 +37,7 @@ export default function Weather(){
             </h1>
             <ul>
                 <li>Wednesday 7:00</li>
-                <li>Mostly cloudy</li>
+                <li>{weatherData.description}</li>
             </ul>
              
             <div className="row mt-3">
@@ -28,12 +45,12 @@ export default function Weather(){
                 <div className="col-6">
                     <div className="clearfix">
                         <div className="float-left">
-                    <img src="https://ssl.gstatic.com/onebox/weather/64/rain_light.png" 
-                    alt="Mostly cloudy"
+                    <img src={weatherData.icon}
+                    alt={weatherData.description}
                      />
                     </div>
                     <div className="float-left">
-                       <span className="temperature">9</span> <span className="unit float-left">°C</span>
+                       <span className="temperature">{Math.round(weatherData.temperature)}</span> <span className="unit float-left">°C</span>
                        </div>
                 </div>
                 </div>
@@ -41,10 +58,10 @@ export default function Weather(){
                      <ul>
                          
                          <li>
-                             Humidity: 20%
+                             Humidity: {weatherData.humidity}%
                          </li>
                          <li>
-                             Wind: 10 km/h
+                             Wind: {weatherData.wind} km/h
                          </li>
                      </ul>
                     
@@ -54,4 +71,17 @@ export default function Weather(){
         </div>
         
     )
+}
+else {
+     const apiKey="5f472b7acba333cd8a035ea85a0d4d4c";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${apiKey}&units=metric`;
+    
+    axios.get(apiUrl).then(updateWeather);
+    return (
+        <p>
+            loading...
+        </p>
+    )
+
+}
 }
