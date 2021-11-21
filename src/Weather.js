@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Weather.css"
+import FormattedDate from "./FormattedDate";
 
 
 export default function Weather(){
@@ -14,9 +15,15 @@ export default function Weather(){
             humidity: response.data.main.humidity,
             description:response.data.weather[0].description,
             wind:response.data.wind.speed,
+            date: new Date(response.data.dt * 1000),
             icon: "https://ssl.gstatic.com/onebox/weather/64/rain_light.png"
-        })
+        });
 
+    }
+    function search(){
+    const apiKey="094780c710fa4efd669f0df8c3991927";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(updateWeather);
     }
  if (weatherData.ready){
     return(
@@ -36,7 +43,7 @@ export default function Weather(){
                 New York
             </h1>
             <ul>
-                <li>Wednesday 7:00</li>
+                <li><FormattedDate date={weatherData.date} /></li>
                 <li>{weatherData.description}</li>
             </ul>
              
@@ -73,10 +80,7 @@ export default function Weather(){
     )
 }
 else {
-     const apiKey="5f472b7acba333cd8a035ea85a0d4d4c";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${apiKey}&units=metric`;
-    
-    axios.get(apiUrl).then(updateWeather);
+    search();
     return (
         <p>
             loading...
