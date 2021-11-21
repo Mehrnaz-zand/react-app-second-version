@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   return (
     <div className="App">
+<div className="container">
       <h1>
-
      Weather app
      </h1>
+     <button className="btn btn-primary">test</button>
     <footer>
       This project was created by {" "} 
       <a href="https://www.linkedin.com/in/mehrnaz-zand" target="_blank" rel="noreferrer">Mehrnaz Zand </a>
@@ -17,6 +19,7 @@ function App() {
       </a>
       
     </footer>
+    </div>
     </div>
   );
 }
