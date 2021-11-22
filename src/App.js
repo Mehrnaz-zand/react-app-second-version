@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
 <div className="container">
-<Weather />
+<Weather defaultCity="London" />
     <footer>
       This project was created by {" "} 
       <a href="https://www.linkedin.com/in/mehrnaz-zand" target="_blank" rel="noreferrer">Mehrnaz Zand </a>
