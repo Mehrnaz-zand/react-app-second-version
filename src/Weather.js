@@ -8,16 +8,16 @@ export default function Weather(){
     let [weatherData, setWeatherData]= useState({ready:false})
    
     function updateWeather(response){
-    console.log(response.data)
         setWeatherData({
             ready:true,
             temperature:response.data.main.temp, 
-            humidity: response.data.main.humidity,
+            humidity: response.data.main.humidity,  
             description:response.data.weather[0].description,
             wind:response.data.wind.speed,
             date: new Date(response.data.dt * 1000),
             icon: "https://ssl.gstatic.com/onebox/weather/64/rain_light.png"
         });
+        
 
     }
     function search(){
@@ -26,6 +26,7 @@ export default function Weather(){
     axios.get(apiUrl).then(updateWeather);
     }
  if (weatherData.ready){
+     
     return(
         <div className="Weather">
             <form>
@@ -40,7 +41,7 @@ export default function Weather(){
                 </div>
             </form>
             <h1>
-                New York
+                London
             </h1>
             <ul>
                 <li><FormattedDate date={weatherData.date} /></li>
