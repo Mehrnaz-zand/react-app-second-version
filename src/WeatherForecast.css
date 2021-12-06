@@ -8,3 +8,8 @@
 .WeatherForecast canvas {
   float: none;
 }
+@media (max-width: 567px) {
+  .WeatherForecast .col {
+    padding: 8px;
+  }
+}

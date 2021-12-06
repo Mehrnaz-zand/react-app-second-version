@@ -47,3 +47,8 @@
 a {
   text-decoration: none;
 }
+@media (max-width: 567px) {
+  .Weather .button {
+    padding: 6px;
+  }
+}
